@@ -1,38 +1,76 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #1b3c8a, #1a1a2e);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Segoe UI', sans-serif;
+    color: #f1f5f9;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  
+  
+  .app-container {
+    text-align: center;
+    padding: 40px 20px;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .app-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #f1f5f9;
+    margin-bottom: 10px;
   }
-}
+  
+  .app-subheading {
+    color: #94a3b8;
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+  
+  .sneaker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .sneaker-card {
+    background: #1f1f2e;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .sneaker-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .sneaker-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .sneaker-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0 0 6px;
+  }
+  
+  .sneaker-price {
+    color: #60a5fa;
+    font-weight: bold;
+    margin: 0 0 4px;
+  }
+  
+  .sneaker-description {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+  }
+  
