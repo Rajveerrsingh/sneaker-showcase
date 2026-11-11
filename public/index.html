@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👟</text></svg>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#1a1a2e" />
-    <meta
-      name="description"
-      content="Sneaker Showcase - a React app for browsing Nike and Adidas sneakers"
-    />
-    <title>Sneaker Showcase</title>
+    <meta name="theme-color" content="#0c0c0e" />
+    <meta name="description" content="Sole Archive - a React sneaker showcase by Rajveer Singh. Browse, filter and save Nike, Jordan and Adidas classics." />
+    <meta property="og:title" content="Sole Archive | Sneaker Showcase" />
+    <meta property="og:description" content="A React sneaker showcase with filters, search, a product page, bag and favourites." />
+    <meta property="og:image" content="https://rajveerrsingh.github.io/sneaker-showcase/images/jordan-1-high.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script>
+      try {
+        var t = JSON.parse(localStorage.getItem("ss_theme"));
+        if (!t) t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+    <title>Sole Archive | Sneaker Showcase</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    
   </body>
 </html>
