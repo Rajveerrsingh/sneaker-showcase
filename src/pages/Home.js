@@ -1,22 +1,27 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import sneakers, { formatPrice } from "../data/sneakers";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import sneakers from "../data/sneakers";
 import SneakerCard from "../components/SneakerCard";
-import SneakerImage from "../components/SneakerImage";
+import Hero from "../components/Hero";
+import Carousel from "../components/Carousel";
+import Countdown from "../components/Countdown";
+import Magnetic from "../components/Magnetic";
 import { Empty } from "../components/Drawer";
 import { ArrowIcon, SearchIcon } from "../components/Icons";
-import useReveal from "../hooks/useReveal";
+import Reveal from "../components/Reveal";
 
 const SORTS = {
   featured: { label: "Featured", fn: (a, b) => a.id - b.id },
   "price-asc": { label: "Price: low to high", fn: (a, b) => a.price - b.price },
   "price-desc": { label: "Price: high to low", fn: (a, b) => b.price - a.price },
   name: { label: "Name: A to Z", fn: (a, b) => a.name.localeCompare(b.name) },
-  newest: { label: "Year: newest first", fn: (a, b) => b.since - a.since }
+  oldest: { label: "Heritage: oldest first", fn: (a, b) => (a.since || 9999) - (b.since || 9999) }
 };
 
-const featured = sneakers.find((s) => s.id === 1);
-const editorial = sneakers.find((s) => s.name === "Adidas Superstar");
+const dropShoe = sneakers.find((s) => s.key === "vomero5");
+const railItems = sneakers.filter((s) => ["aj4", "gazelle-indoor", "nb1906r", "cortez", "sl72", "dunk-panda", "puma-suede"].includes(s.key));
+const editorial = sneakers.find((s) => s.key === "puma-suede");
 
 function Home() {
   const [brand, setBrand] = useState("All");
@@ -39,8 +44,6 @@ function Home() {
       .sort(SORTS[sort].fn);
   }, [brand, query, sort]);
 
-  useReveal([shown]);
-
   useEffect(() => {
     if (location.state?.scrollTo) {
       const el = document.getElementById(location.state.scrollTo);
@@ -56,60 +59,7 @@ function Home() {
 
   return (
     <>
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <p className="eyebrow hero-eyebrow">
-            <span className="dot" aria-hidden="true" /> Fall / Winter 2026 edit
-          </p>
-          <h1 id="hero-title" className="hero-title">
-            <span className="hl"><span>Walk</span></span>{" "}
-            <span className="hl"><span>louder<em>.</em></span></span>
-          </h1>
-          <p className="hero-sub">
-            A curated archive of the sneakers that shaped the street, from 1969 shell toes to modern Boost
-            runners. Browse, filter and build your rotation.
-          </p>
-          <div className="hero-cta">
-            <a
-              href="#shop"
-              className="btn btn-primary"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById("shop")?.scrollIntoView({ behavior: "smooth" });
-              }}
-            >
-              Shop the drop <ArrowIcon width={18} height={18} />
-            </a>
-            <Link to={`/sneaker/${featured.id}`} className="btn btn-ghost">
-              View {featured.name}
-            </Link>
-          </div>
-          <dl className="hero-stats">
-            <div><dt>Pairs</dt><dd>{sneakers.length}</dd></div>
-            <div><dt>Brands</dt><dd>{brands.length - 1}</dd></div>
-            <div><dt>Sizes</dt><dd>7–13</dd></div>
-          </dl>
-        </div>
-
-        <Link to={`/sneaker/${featured.id}`} className="hero-visual" aria-label={`Featured: ${featured.name}`}>
-          <div className="hero-frame">
-            <SneakerImage src={featured.image} alt={`${featured.name} in ${featured.colorway}`} className="hero-img" eager />
-          </div>
-          <div className="hero-tag">
-            <span className="eyebrow">Featured drop</span>
-            <strong>{featured.name}</strong>
-            <span>{formatPrice(featured.price)}</span>
-          </div>
-          <svg className="hero-badge" viewBox="0 0 100 100" aria-hidden="true">
-            <defs>
-              <path id="circle" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
-            </defs>
-            <text>
-              <textPath href="#circle" textLength="236" lengthAdjust="spacing">NEW SEASON • FEATURED DROP • </textPath>
-            </text>
-          </svg>
-        </Link>
-      </section>
+      <Hero />
 
       <div className="marquee" aria-hidden="true">
         <div className="marquee-track">
@@ -125,25 +75,34 @@ function Home() {
         </div>
       </div>
 
+      <Reveal className="drop-wrap">
+        <Countdown sneaker={dropShoe} />
+      </Reveal>
+
+      <Carousel items={railItems} />
+
       <section id="shop" className="shop" aria-labelledby="shop-title">
-        <div className="section-head reveal">
+        <Reveal className="section-head">
           <div>
             <p className="eyebrow">The collection</p>
             <h2 id="shop-title" className="section-title">Shop all sneakers</h2>
           </div>
           <p className="muted result-count" aria-live="polite">
-            {shown.length} {shown.length === 1 ? "pair" : "pairs"}
+            {shown.length} {shown.length === 1 ? "pair" : "pairs"} · tap ⇅ on two cards to compare
           </p>
-        </div>
+        </Reveal>
 
-        <div className="toolbar reveal">
-          <div className="chips" role="group" aria-label="Filter by brand">
-            {brands.map((b) => (
-              <button key={b} type="button" className={`chip ${brand === b ? "active" : ""}`} aria-pressed={brand === b} onClick={() => setBrand(b)}>
-                {b} <span className="chip-count">{counts[b]}</span>
-              </button>
-            ))}
-          </div>
+        <Reveal className="toolbar">
+          <LayoutGroup id="chips">
+            <div className="chips" role="group" aria-label="Filter by brand">
+              {brands.map((b) => (
+                <button key={b} type="button" className={`chip ${brand === b ? "active" : ""}`} aria-pressed={brand === b} onClick={() => setBrand(b)}>
+                  {brand === b && <motion.span layoutId="chip-pill" className="chip-pill" transition={{ type: "spring", stiffness: 400, damping: 32 }} />}
+                  <span className="chip-label">{b}</span> <span className="chip-count">{counts[b]}</span>
+                </button>
+              ))}
+            </div>
+          </LayoutGroup>
           <div className="toolbar-right">
             <label className="search">
               <SearchIcon width={18} height={18} />
@@ -159,7 +118,7 @@ function Home() {
               </select>
             </label>
           </div>
-        </div>
+        </Reveal>
 
         {shown.length === 0 ? (
           <Empty
@@ -168,35 +127,56 @@ function Home() {
             text={<>Try another brand or a shorter search. <button className="text-btn inline" onClick={reset}>Reset filters</button></>}
           />
         ) : (
-          <div className="grid">
-            {shown.map((s, i) => (
-              <SneakerCard key={s.id} sneaker={s} index={i} />
-            ))}
-          </div>
+          <motion.div className="grid" layout>
+            <AnimatePresence mode="popLayout">
+              {shown.map((s, i) => (
+                <SneakerCard key={s.id} sneaker={s} index={i} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
         )}
       </section>
 
-      <section className="editorial reveal" aria-labelledby="ed-title">
-        <div className="editorial-media">
-          <SneakerImage src={editorial.image} alt={`${editorial.name} sneakers`} className="editorial-img" />
+      <Reveal className="editorial" as="section">
+        <div className="editorial-media" style={{ "--glow": editorial.glow }}>
+          <span className="editorial-ring" aria-hidden="true" />
+          <motion.img
+            src={editorial.image}
+            alt={`${editorial.name} in ${editorial.colorway}`}
+            className="editorial-img"
+            loading="lazy"
+            initial={{ rotate: -24, x: -60, opacity: 0 }}
+            whileInView={{ rotate: -10, x: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ type: "spring", stiffness: 70, damping: 14 }}
+          />
         </div>
         <div className="editorial-copy">
           <p className="eyebrow">Icons never retire</p>
-          <h2 id="ed-title" className="section-title">Shell toe, since {editorial.since}.</h2>
+          <h2 className="section-title">Suede, since {editorial.since}.</h2>
           <p className="muted">
-            Born on the basketball court and adopted by hip-hop, the {editorial.name} is still one of the most
-            recognisable silhouettes on the street.
+            Low, soft and simple. The {editorial.name} has been on courts, dance floors and city streets for more
+            than five decades, and it still looks right with everything.
           </p>
-          <Link to={`/sneaker/${editorial.id}`} className="btn btn-primary">
-            Shop the {editorial.name} <ArrowIcon width={18} height={18} />
-          </Link>
+          <Magnetic>
+            <Link to={`/sneaker/${editorial.id}`} className="btn btn-primary">
+              Shop the {editorial.name} <ArrowIcon width={18} height={18} />
+            </Link>
+          </Magnetic>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="perks reveal" aria-label="Highlights">
-        <div><strong>Size guide built in</strong><span className="muted">US 7 to 13 with live stock on every pair.</span></div>
-        <div><strong>Save your rotation</strong><span className="muted">Favourites and bag stay put between visits.</span></div>
-        <div><strong>Light or dark</strong><span className="muted">Switch themes from the top bar any time.</span></div>
+      <section className="perks" aria-label="Highlights">
+        {[
+          ["Move the shoe", "The hero tilts in 3D and follows your cursor."],
+          ["Compare head to head", "Pick any two pairs and see them side by side."],
+          ["Save your rotation", "Bag, favourites and theme stay put between visits."]
+        ].map(([t, d], k) => (
+          <Reveal key={t} delay={k * 0.08}>
+            <strong>{t}</strong>
+            <span className="muted">{d}</span>
+          </Reveal>
+        ))}
       </section>
     </>
   );

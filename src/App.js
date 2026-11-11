@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { HashRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { MotionConfig } from "framer-motion";
 import { StoreProvider } from "./store";
+import { CompareBar, CompareModal } from "./components/Compare";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Drawer from "./components/Drawer";
@@ -32,18 +34,22 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <StoreProvider>
-      <Router>
-        <a href="#main" className="skip-link" onClick={(e) => { e.preventDefault(); document.getElementById("main")?.focus(); }}>
-          Skip to content
-        </a>
-        <Navbar />
-        <AnimatedRoutes />
-        <Footer />
-        <Drawer />
-        <Toast />
-      </Router>
-    </StoreProvider>
+    <MotionConfig reducedMotion="user">
+      <StoreProvider>
+        <Router>
+          <a href="#main" className="skip-link" onClick={(e) => { e.preventDefault(); document.getElementById("main")?.focus(); }}>
+            Skip to content
+          </a>
+          <Navbar />
+          <AnimatedRoutes />
+          <Footer />
+          <Drawer />
+          <CompareBar />
+          <CompareModal />
+          <Toast />
+        </Router>
+      </StoreProvider>
+    </MotionConfig>
   );
 }
 

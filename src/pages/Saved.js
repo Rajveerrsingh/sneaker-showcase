@@ -5,12 +5,10 @@ import SneakerCard from "../components/SneakerCard";
 import { Empty } from "../components/Drawer";
 import { HeartIcon } from "../components/Icons";
 import { useStore } from "../store";
-import useReveal from "../hooks/useReveal";
 
 function Saved() {
   const { favorites } = useStore();
   const saved = sneakers.filter((s) => favorites.includes(s.id));
-  useReveal([saved.length]);
 
   return (
     <section className="saved-page" aria-labelledby="saved-title">
