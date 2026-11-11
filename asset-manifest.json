@@ -1,13 +1,27 @@
 {
   "files": {
-    "main.css": "/sneaker-showcase/static/css/main.23499a10.css",
-    "main.js": "/sneaker-showcase/static/js/main.fdd6711d.js",
+    "main.css": "/sneaker-showcase/static/css/main.2f07c09b.css",
+    "main.js": "/sneaker-showcase/static/js/main.b068a527.js",
+    "static/media/inter-tight-latin-ext-wght-normal.woff2": "/sneaker-showcase/static/media/inter-tight-latin-ext-wght-normal.e4dd796d16bcc331db6d.woff2",
+    "static/media/inter-latin-ext-wght-normal.woff2": "/sneaker-showcase/static/media/inter-latin-ext-wght-normal.8bff79fbfaa8b8167a0b.woff2",
+    "static/media/inter-latin-wght-normal.woff2": "/sneaker-showcase/static/media/inter-latin-wght-normal.4f2981d82860061bca3e.woff2",
+    "static/media/inter-tight-latin-wght-normal.woff2": "/sneaker-showcase/static/media/inter-tight-latin-wght-normal.0edf9357ea6d68a64ad5.woff2",
+    "static/media/inter-tight-cyrillic-ext-wght-normal.woff2": "/sneaker-showcase/static/media/inter-tight-cyrillic-ext-wght-normal.5d64fa80fbdc0b3b33c8.woff2",
+    "static/media/inter-cyrillic-ext-wght-normal.woff2": "/sneaker-showcase/static/media/inter-cyrillic-ext-wght-normal.b5cdd4765614e027c252.woff2",
+    "static/media/inter-tight-greek-wght-normal.woff2": "/sneaker-showcase/static/media/inter-tight-greek-wght-normal.133c021c3308f3e77448.woff2",
+    "static/media/inter-greek-wght-normal.woff2": "/sneaker-showcase/static/media/inter-greek-wght-normal.4f908aee8194b11d9c35.woff2",
+    "static/media/inter-cyrillic-wght-normal.woff2": "/sneaker-showcase/static/media/inter-cyrillic-wght-normal.49594fb515ba00213fc3.woff2",
+    "static/media/inter-tight-cyrillic-wght-normal.woff2": "/sneaker-showcase/static/media/inter-tight-cyrillic-wght-normal.015250f2641dc7e3a067.woff2",
+    "static/media/inter-tight-greek-ext-wght-normal.woff2": "/sneaker-showcase/static/media/inter-tight-greek-ext-wght-normal.7f99cbeaffcb0b9876af.woff2",
+    "static/media/inter-greek-ext-wght-normal.woff2": "/sneaker-showcase/static/media/inter-greek-ext-wght-normal.f4df85d151e5ee39bc2b.woff2",
+    "static/media/inter-tight-vietnamese-wght-normal.woff2": "/sneaker-showcase/static/media/inter-tight-vietnamese-wght-normal.b7371c65a75793bbdda0.woff2",
+    "static/media/inter-vietnamese-wght-normal.woff2": "/sneaker-showcase/static/media/inter-vietnamese-wght-normal.ab4bb8dcda024fe6eff2.woff2",
     "index.html": "/sneaker-showcase/index.html",
-    "main.23499a10.css.map": "/sneaker-showcase/static/css/main.23499a10.css.map",
-    "main.fdd6711d.js.map": "/sneaker-showcase/static/js/main.fdd6711d.js.map"
+    "main.2f07c09b.css.map": "/sneaker-showcase/static/css/main.2f07c09b.css.map",
+    "main.b068a527.js.map": "/sneaker-showcase/static/js/main.b068a527.js.map"
   },
   "entrypoints": [
-    "static/css/main.23499a10.css",
-    "static/js/main.fdd6711d.js"
+    "static/css/main.2f07c09b.css",
+    "static/js/main.b068a527.js"
   ]
 }

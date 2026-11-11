@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page not found · Sole Archive</title>
+    <link rel="icon" href="/sneaker-showcase/favicon.svg" type="image/svg+xml" />
+    <script>
+      // The app uses hash routing, so send unknown paths to its own styled 404 page.
+      var base = "/sneaker-showcase/";
+      if (location.pathname.indexOf(base) === 0) location.replace(base + "#/not-found");
+    </script>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #f6f5f2;
+        color: #111;
+        font:
+          16px/1.6 system-ui,
+          sans-serif;
+        text-align: center;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 40px;
+        letter-spacing: -0.03em;
+      }
+      a {
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Page not found</h1>
+      <p><a href="/sneaker-showcase/">Back to Sole Archive</a></p>
+    </main>
+  </body>
+</html>
