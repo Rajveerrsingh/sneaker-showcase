@@ -1,91 +1,151 @@
-# Sole Archive · Sneaker Showcase
+# Sole Archive
 
-An interactive sneaker storefront built with React and Framer Motion. The hero shoe tilts in 3D and follows your cursor, cards morph into the product page, filters reflow with animation, and you can drag through featured drops, zoom in with a lens, compare two pairs head to head, and keep a bag and saved list between visits.
+**A curated sneaker archive built with React: every pair shown in side profile, at the same scale, on the same baseline.**
 
-**Live demo:** https://rajveerrsingh.github.io/sneaker-showcase/
+[![Live demo](https://img.shields.io/badge/live%20demo-rajveerrsingh.github.io-111111?style=flat-square)](https://rajveerrsingh.github.io/sneaker-showcase/)
+![React 19](https://img.shields.io/badge/React-19-111111?style=flat-square&logo=react)
+![Framer Motion](https://img.shields.io/badge/Framer%20Motion-11-111111?style=flat-square)
 
 ![Sole Archive home page](docs/preview.jpg)
 
----
+## Features
 
-## Highlights
-
-- **3D tilt hero**: the featured shoe, its colour glow and the outlined model name move at different depths as you move the cursor. It rotates through three featured pairs, and you can pick one from the thumbnails.
-- **Shared element transitions**: the shoe on a product card animates into place on the product page
-- **Animated filtering**: brand chips with a sliding pill, live search and sorting, and the grid reflows smoothly (Framer Motion `layout` + `AnimatePresence`)
-- **Draggable featured rail** with arrow buttons and keyboard support
-- **Next drop countdown**: a live demo timer to the next Saturday 10:00 release
-- **Product page**: a hover zoom lens, studio cut-out or original photo views, an animated size picker, colourway swatches, photo credit, previous/next links and related pairs
-- **Compare mode**: pick any two pairs and open a head to head modal with price, year, colourway and stock
-- **Bag and favourites** in a slide-out drawer, saved to `localStorage`, with animated toasts
-- **Little touches**: magnetic buttons, count-up stats, colour-matched glows behind every shoe, skeleton shimmer while images load, scroll reveals
-- **Dark and light themes** that follow your system and remember your choice
-- **Accessible**: keyboard friendly, skip link, focus rings, alt text, ARIA labels, focus kept in dialogs, and all motion respects `prefers-reduced-motion`
-- **Responsive** from small phones up
+- **Consistent product photography.** Seven Wikimedia Commons photos, all side profiles with the toe pointing left. Backgrounds are removed and every shoe is exported onto the same 1200×900 canvas, the same width and the same ground line, so the grid reads as one set.
+- **Filter, search and sort.** Brand filter with a sliding indicator, instant search across name, brand and colourway, and four sort orders. The grid reflows with layout animations, and a row that would end with a gap gets a wide editorial card.
+- **Product page.** Cut-out or original photo view, colourway swatches, a size picker that marks sold-out sizes, validation before adding to the bag, release details and the full photo credit.
+- **Bag, saved pairs and compare.** A slide-out bag with quantities and subtotal, a saved list, and a side-by-side compare for any two pairs. Bag, saved list and theme persist in `localStorage`.
+- **Timeline.** The pairs with well-documented release years, in order, from 1968 to 1990.
+- **Light and dark themes** that follow the system setting and remember your choice, with no flash on load.
+- **Accessible by default.** Semantic landmarks, a skip link, visible focus rings, labelled controls, focus trapping in the bag and compare dialogs, and every animation respects `prefers-reduced-motion`.
+- **Fast and stable.** Self-hosted variable fonts, responsive `srcset` images with explicit dimensions, a preloaded hero image and zero layout shift.
+- **Polished edges.** Custom logo mark and favicon, Open Graph and Twitter preview image, per-page titles, and a styled 404 page for both unknown routes and unknown products.
 
 Prices and stock are demo data. Nothing is for sale.
 
+<p align="center"><img src="docs/product.jpg" alt="Product page for the Nike Cortez" width="820" /></p>
+
 ## Tech stack
 
-- **React 19** with hooks and Context (bag, favourites, compare, theme)
-- **Framer Motion 11** for layout animations, shared transitions, springs and gestures
-- **React Router 7** (`HashRouter`, so deep links work on GitHub Pages)
-- **Plain CSS** with custom properties and `color-mix()` for theming, no UI framework
-- **Google Fonts**: Space Grotesk and Inter
-- **GitHub Pages** for hosting
+| Area | Choice |
+| --- | --- |
+| UI | React 19 with function components and hooks |
+| State | React Context plus a small `usePersistedState` hook |
+| Routing | React Router 7 with `HashRouter`, so deep links work on GitHub Pages |
+| Motion | Framer Motion 11 (`layout`, `AnimatePresence`, shared `layoutId` indicators) |
+| Styling | Plain CSS with design tokens in custom properties; one CSS file per component |
+| Type | Inter and Inter Tight, self-hosted through Fontsource |
+| Tooling | Create React App, ESLint (`react-app` config), Prettier |
+| Hosting | GitHub Pages |
 
-## Project structure
+## Design system
+
+All values live in [`src/styles/tokens.css`](src/styles/tokens.css):
+
+- **Spacing:** a 4px-based scale from `--space-1` (4px) to `--space-10` (128px)
+- **Type:** a fixed scale from 12px to 28px plus fluid display sizes; display headings use Inter Tight with `-0.035em` tracking
+- **Radii:** three only: 6px for small controls, 12px for cards and panels, and fully round for pills
+- **Colour:** warm neutrals for light and dark themes and a single orange accent, used for focus, the bag badge and active states
+- **Layout:** a 12-column grid (`.grid-12`) with a fluid gutter, used by every section
+
+## Lighthouse
+
+Measured locally on the production build, served with gzip like GitHub Pages:
+
+| | Performance | Accessibility | Best practices | SEO |
+| --- | --- | --- | --- | --- |
+| Desktop | 100 | 100 | 100 | 100 |
+| Mobile | 92 | 100 | 100 | 100 |
+
+## Architecture
 
 ```
 src/
-  components/   Hero, Carousel, Countdown, Compare, SneakerCard, SneakerImage,
-                Magnetic, Counter, Reveal, Navbar, Footer, Drawer, Toast, Icons
-  pages/        Home, Detail, Saved, NotFound
-  data/         sneakers.js (demo catalogue)
-  store.js      bag, favourites, compare and theme state
-public/images/  studio cut-outs (.webp) and original photos (photo/*.jpg)
+├── App.js                 routes, layout shell, page transitions
+├── index.js               entry point, fonts and global styles
+├── components/
+│   ├── BagDrawer/         slide-out bag dialog
+│   ├── Compare/           CompareBar and CompareModal
+│   ├── Footer/
+│   ├── Hero/              featured pair with autoplay and progress
+│   ├── Icons/             inline SVG icon set
+│   ├── Logo/              logo mark and wordmark
+│   ├── Navbar/
+│   ├── ProductCard/
+│   ├── ProductGrid/       animated grid with row filling
+│   ├── ProductImage/      sized image with srcset, shimmer and fallback
+│   ├── Segmented/         segmented control with a sliding indicator
+│   ├── Timeline/
+│   └── Toast/
+├── context/
+│   └── StoreContext.js    bag, saved pairs, compare, theme and toasts
+├── data/
+│   └── sneakers.js        demo catalogue, sizes, sort options, helpers
+├── hooks/
+│   ├── useDialog.js       focus trap, Escape to close, scroll lock
+│   └── usePersistedState.js
+├── pages/
+│   ├── HomePage/
+│   ├── NotFoundPage/
+│   ├── ProductPage/
+│   └── SavedPage/
+└── styles/
+    ├── base.css           reset, layout, buttons and type helpers
+    └── tokens.css         design tokens for both themes
+public/
+├── images/                cut-outs (.webp, 1200 and 640 wide) and original photos (photo/)
+├── og-image.png           social preview
+├── favicon.svg            plus PNG icons and the web manifest
+└── 404.html               sends unknown paths to the in-app 404 page
 ```
 
-## Run it locally
+Each component folder holds its JavaScript and its own stylesheet. Shared state is in one context so components stay presentational, and data helpers such as `getSneaker` and `formatPrice` live next to the catalogue.
+
+## Getting started
+
+Requires Node 18 or newer.
 
 ```bash
-git clone https://github.com/Rajveerrsingh/sneaker-showcase
+git clone https://github.com/Rajveerrsingh/sneaker-showcase.git
 cd sneaker-showcase
 npm install
-npm start
+npm start          # http://localhost:3000
 ```
 
-Then open http://localhost:3000
-
-## Deploy
+Other scripts:
 
 ```bash
-npm run build
+npm run build      # production build in build/
+npx eslint src     # lint
 ```
 
-Then push the contents of the `build` folder to the `gh-pages` branch.
+To deploy, publish the contents of `build/` to the `gh-pages` branch.
 
-## Image credits
+## Credits and licences
 
-All photos come from Wikimedia Commons. The studio views are the same photos with the background removed and resized.
+### Photos
+
+All product photos come from Wikimedia Commons. The cut-outs on the site are the same photos with the background removed, levelled where needed, resized and placed on a shared canvas. The original photos are available on every product page.
 
 | Sneaker | Photographer | Licence | Source |
 | --- | --- | --- | --- |
-| Air Jordan 1 High | Osyffar | CC0 | [Nike_Air_Jordan_I.jpg](https://commons.wikimedia.org/wiki/File:Nike_Air_Jordan_I.jpg) |
-| Air Jordan 4 Retro | Osyffar | CC0 | [Nike_Air_Jordan_IV.jpg](https://commons.wikimedia.org/wiki/File:Nike_Air_Jordan_IV.jpg) |
-| New Balance 1906R | LeDroider | CC0 | [New_Balance_1906R.jpg](https://commons.wikimedia.org/wiki/File:New_Balance_1906R.jpg) |
-| New Balance 550 | LeDroider | CC0 | [New_Balance_550.jpg](https://commons.wikimedia.org/wiki/File:New_Balance_550.jpg) |
-| Nike Dunk Low | LeDroider | CC0 | [Panda_Nike_Dunk.jpg](https://commons.wikimedia.org/wiki/File:Panda_Nike_Dunk.jpg) |
-| Nike Zoom Vomero 5 | LeDroider | CC0 | [Vomero_5.jpg](https://commons.wikimedia.org/wiki/File:Vomero_5.jpg) |
 | Nike Cortez | LeDroider | CC0 | [Nike_Cortez.jpg](https://commons.wikimedia.org/wiki/File:Nike_Cortez.jpg) |
 | Nike Air Max 90 | Mfagoaguna1 | CC BY-SA 4.0 | [Nike_Air_Max_90.jpg](https://commons.wikimedia.org/wiki/File:Nike_Air_Max_90.jpg) |
-| Adidas Gazelle Indoor | LeDroider | CC0 | [Adidas_Gazelle_Indoor.jpg](https://commons.wikimedia.org/wiki/File:Adidas_Gazelle_Indoor.jpg) |
+| Nike Dunk Low | LeDroider | CC0 | [Panda_Nike_Dunk.jpg](https://commons.wikimedia.org/wiki/File:Panda_Nike_Dunk.jpg) |
 | Adidas SL 72 OG | LeDroider | CC0 | [Adidas_SL_72_OG.jpg](https://commons.wikimedia.org/wiki/File:Adidas_SL_72_OG.jpg) |
-| Asics Gel-1130 | LeDroider | CC0 | [Asics_Gel-1130.jpg](https://commons.wikimedia.org/wiki/File:Asics_Gel-1130.jpg) |
 | Puma Suede Classic | LeDroider | CC0 | [Puma_Suede.jpg](https://commons.wikimedia.org/wiki/File:Puma_Suede.jpg) |
+| Asics Gel-1130 | LeDroider | CC0 | [Asics_Gel-1130.jpg](https://commons.wikimedia.org/wiki/File:Asics_Gel-1130.jpg) |
+| Asics Gel-NYC 2 | LeDroider | CC0 | [Asics_Gel-NYC_2.jpg](https://commons.wikimedia.org/wiki/File:Asics_Gel-NYC_2.jpg) |
 
 The edited Air Max 90 images are shared under the same CC BY-SA 4.0 licence.
 
+### Fonts
+
+[Inter](https://rsms.me/inter/) and [Inter Tight](https://github.com/rsms/inter-tight) by The Inter Project Authors, under the SIL Open Font License 1.1, bundled through [Fontsource](https://fontsource.org/).
+
+### Trademarks
+
+Nike, Adidas, Puma and Asics names and product designs belong to their owners. This is a non-commercial portfolio project with no affiliation to any brand.
+
 ---
 
-Built by [Rajveer Singh](https://github.com/Rajveerrsingh)
+Designed and built by [Rajveer Singh](https://github.com/Rajveerrsingh).
