@@ -1,0 +1,88 @@
+/* Design tokens: every colour, size and duration in the UI comes from here. */
+:root {
+  /* type */
+  --font-display: "Inter Tight Variable", "Inter Variable", system-ui, sans-serif;
+  --font-body: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --text-xs: 0.75rem; /* 12 */
+  --text-sm: 0.875rem; /* 14 */
+  --text-md: 1rem; /* 16 */
+  --text-lg: 1.125rem; /* 18 */
+  --text-xl: 1.375rem; /* 22 */
+  --text-2xl: 1.75rem; /* 28 */
+  --text-3xl: clamp(2rem, 1.4rem + 2vw, 2.75rem); /* 32-44 */
+  --text-4xl: clamp(2.5rem, 1.5rem + 3.6vw, 4.5rem); /* 40-72 */
+  --text-5xl: clamp(4.5rem, 2rem + 10vw, 10rem); /* 72-160 */
+
+  --tracking-tight: -0.035em;
+  --tracking-snug: -0.02em;
+  --tracking-wide: 0.08em;
+  --leading-tight: 1.02;
+  --leading-snug: 1.25;
+  --leading-body: 1.6;
+
+  /* spacing (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* layout */
+  --container: 80rem;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --grid-gap: clamp(1rem, 2vw, 1.5rem);
+  --nav-height: 4rem;
+
+  /* radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 160ms;
+  --duration-base: 280ms;
+
+  /* colour: light (default) */
+  --color-bg: #f6f5f2;
+  --color-surface: #ecebe7;
+  --color-surface-hover: #e6e4df;
+  --color-elevated: #ffffff;
+  --color-ink: #111111;
+  --color-ink-soft: #3a3a38;
+  --color-muted: #6b6a66;
+  --color-line: rgba(17, 17, 17, 0.1);
+  --color-line-strong: rgba(17, 17, 17, 0.2);
+  --color-inverse: #f6f5f2;
+  --color-accent: #e8541c;
+  --color-accent-ink: #ffffff;
+  --shadow-soft: 0 1px 2px rgba(17, 17, 17, 0.04), 0 8px 24px -12px rgba(17, 17, 17, 0.16);
+  --shadow-lift: 0 2px 4px rgba(17, 17, 17, 0.04), 0 24px 48px -24px rgba(17, 17, 17, 0.28);
+  --overlay: rgba(17, 17, 17, 0.32);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f0f10;
+  --color-surface: #19191b;
+  --color-surface-hover: #1f1f22;
+  --color-elevated: #1c1c1f;
+  --color-ink: #f2f1ee;
+  --color-ink-soft: #cfcdc8;
+  --color-muted: #9a9893;
+  --color-line: rgba(242, 241, 238, 0.1);
+  --color-line-strong: rgba(242, 241, 238, 0.22);
+  --color-inverse: #0f0f10;
+  --color-accent: #ff6a33;
+  --color-accent-ink: #0f0f10;
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.3), 0 24px 48px -24px rgba(0, 0, 0, 0.8);
+  --overlay: rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}

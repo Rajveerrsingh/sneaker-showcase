@@ -1,0 +1,10 @@
+.product-grid {
+  row-gap: var(--space-7);
+}
+
+@media (max-width: 640px) {
+  .product-grid {
+    column-gap: var(--space-3);
+    row-gap: var(--space-6);
+  }
+}

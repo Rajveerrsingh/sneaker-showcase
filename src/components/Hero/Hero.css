@@ -1,0 +1,153 @@
+.hero {
+  align-items: center;
+  row-gap: var(--space-7);
+  padding-block: var(--space-8) var(--space-9);
+}
+
+.hero__copy {
+  grid-column: 1 / span 5;
+  display: grid;
+  gap: var(--space-5);
+}
+
+.hero__title {
+  font-size: var(--text-4xl);
+  font-weight: 600;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-6);
+  margin-top: var(--space-3);
+}
+
+.hero__stage {
+  grid-column: 7 / span 6;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.hero__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__media .product-image img {
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform 800ms var(--ease-out);
+}
+
+.hero__media:hover .product-image img {
+  transform: scale(1.02);
+}
+
+.hero__caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.hero__meta {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.hero__index {
+  color: var(--color-muted);
+}
+
+.hero__name {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero__dots {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.hero__dot {
+  position: relative;
+  width: 1.5rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.hero__dot::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-line-strong);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.hero__dot:hover::before,
+.hero__dot.is-active::before {
+  background: var(--color-ink);
+}
+
+.hero__dot.is-active:has(.hero__progress)::before {
+  background: var(--color-line-strong);
+}
+
+.hero__progress {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  background: var(--color-ink);
+  transform-origin: left;
+  animation: hero-progress linear forwards;
+}
+
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero {
+    padding-block: var(--space-6) var(--space-8);
+  }
+
+  .hero__copy,
+  .hero__stage {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__price {
+    display: none;
+  }
+}

@@ -1,0 +1,13 @@
+.saved {
+  padding-top: var(--space-7);
+}
+
+.saved__header {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-7);
+}
+
+.saved__title {
+  font-size: var(--text-4xl);
+}
